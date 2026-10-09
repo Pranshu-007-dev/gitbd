@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday Saakshi 🎀</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at 10% 10%, #ff9bd2, transparent 35%),
+        radial-gradient(circle at 90% 90%, #9d7cff, transparent 35%),
+        linear-gradient(135deg, #ff579d, #9959ed, #ff6b91);
+}
+
+#hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    animation: floatHeart linear forwards;
+    opacity: .75;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(.8);
+        opacity: 0;
+    }
+    10% { opacity: .8; }
+    100% {
+        transform: translateY(-120vh) rotate(360deg) scale(1.3);
+        opacity: 0;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: min(1000px, 92%);
+    margin: auto;
+    padding: 35px 0 70px;
+}
+
+.card {
+    margin-bottom: 28px;
+    padding: 35px;
+    border-radius: 28px;
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.3);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 20px 60px rgba(70,20,100,.25);
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 25px;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    margin-bottom: 18px;
+    text-shadow: 0 5px 25px rgba(0,0,0,.2);
+}
+
+.hero p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+.date {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    background: rgba(255,255,255,.2);
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+p { line-height: 1.8; }
+
+.letter {
+    white-space: pre-line;
+    font-size: 1.05rem;
+    line-height: 2;
+}
+
+.countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.time-box {
+    text-align: center;
+    padding: 20px 10px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.18);
+}
+
+.time-box strong {
+    display: block;
+    font-size: 2rem;
+}
+
+.time-box span { opacity: .8; }
+
+button {
+    border: none;
+    cursor: pointer;
+    padding: 14px 25px;
+    border-radius: 999px;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff3f8e, #a855f7);
+    box-shadow: 0 10px 25px rgba(0,0,0,.2);
+    transition: .25s;
+}
+
+button:hover { transform: translateY(-3px) scale(1.03); }
+button:active { transform: scale(.95); }
+
+.memory-title, .music, .proposal, .wish {
+    text-align: center;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.photo {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.3);
+    transition: .4s;
+}
+
+.photo:hover { transform: scale(1.03) rotate(1deg); }
+
+audio { width: 100%; margin-top: 20px; }
+
+.question {
+    font-size: 1.6rem;
+    margin: 25px 0;
+}
+
+.proposal-buttons {
+    min-height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#noBtn { position: relative; }
+
+.love-meter { margin-top: 25px; }
+
+.meter {
+    width: 100%;
+    height: 15px;
+    margin-top: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,.2);
+}
+
+.meter-fill {
+    height: 100%;
+    width: 10%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ff4f9a, #ffcf4f);
+    transition: width .5s;
+}
+
+#yesMessage {
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,.18);
+    animation: pop .7s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+#birthdaySurprise {
+    display: none;
+    text-align: center;
+    animation: pop 1s ease;
+}
+
+#birthdaySurprise h2 {
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.surprise-text {
+    font-size: 1.15rem;
+    line-height: 2;
+}
+
+.confetti {
+    position: fixed;
+    top: -30px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+footer {
+    text-align: center;
+    opacity: .85;
+    padding: 25px;
+}
+
+@media(max-width:650px) {
+    .card { padding: 25px 18px; }
+    .countdown { grid-template-columns: repeat(2,1fr); }
+    .proposal-buttons { flex-direction: column; }
+    .photo { height: 230px; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="container">
+
+<section class="card hero">
+    <h1>Happy Birthday, Saakshi 🎀</h1>
+
+    <p>
+        To my favorite Cartoon 🎀<br>
+        My bbg. My happiness. My person. ❤️
+    </p>
+
+    <div class="date">Our special 24th ❤️</div>
+</section>
+
+<section class="card">
+<h2>💌 A Little Letter For You</h2>
+
+<div class="letter">Happy Birthday, my beautiful Cartoon 🎀❤️
+
+I honestly don't even know where to start because there are so many things I want to say to you.
+
+It's crazy to think that more than 10 months ago, you were just someone I met online through Instagram, in my anime GC "aniverse"... and somehow, that random little meeting became one of the most beautiful parts of my life.
+
+I never expected that a person I met online would become someone this important to me.
+
+But then there was you.
+
+Your innocence.
+Your cuteness.
+Your smile.
+Your laugh.
+Your hair.
+The way you speak.
+
+Honestly, I don't know what exactly happened to me...
+
+I just started loving almost everything about you. 🥹❤️
+
+And then came our 24th.
+
+24 November 2025.
+
+The day we officially became us.
+
+That's why the 24th will always have a special little place in my heart.
+
+We've already collected so many funny, cute, stupid, adorable and unforgettable moments together.
+
+Some moments probably wouldn't make sense to anyone else...
+
+But they make sense to us.
+
+And that's what I love.
+
+I love that I can be myself around you.
+I love that you became my comfort person.
+I love that somehow, even a normal conversation with you can make my entire day better.
+
+And yes...
+
+I'll keep calling you Cartoon 🎀.
+I'll keep calling you bbg 🎀.
+
+Because those names just feel like you.
+
+And I will happily remain your shybaby. 🥺❤️
+
+I don't know what the future has planned for us.
+I don't know what life will look like months or years from now.
+
+But there is one thing I want you to know.
+
+I want to be there.
+
+For your good days.
+For your bad days.
+When you're happy.
+When you're annoyed.
+When you're being cute.
+When you're being impossible.
+When you need someone to listen.
+When you just want someone beside you.
+
+I promise I'll always try my best to be that person.
+
+The person you can come back to.
+The person who makes you smile.
+The person who reminds you that you are loved.
+
+You deserve so much happiness, Saakshi.
+
+You deserve to feel special.
+You deserve to know that somebody is genuinely grateful that you exist.
+
+And I'm genuinely grateful that I found you.
+
+So today isn't just about wishing you a Happy Birthday.
+
+It's about celebrating YOU.
+
+The girl who somehow walked into my life through an anime group and ended up becoming one of the most precious people in it.
+
+I hope this birthday gives you a thousand reasons to smile.
+I hope you laugh until your stomach hurts.
+I hope you feel loved.
+I hope you look at yourself and realize just how beautiful and special you are.
+
+And most importantly...
+
+I hope you know that somewhere out here, there's a shybaby who is ridiculously lucky to call you his girlfriend. 🎀❤️
+
+Happy Birthday, my Cartoon.
+Happy Birthday, my bbg.
+Happy Birthday, my favorite person.
+
+And now...
+
+I have one little question for you...
+
+Will you keep being my favorite person for all the days ahead? 🥺❤️</div>
+</section>
+
+<!-- Countdown to the next 24th -->
+<section class="card">
+<h2>⏰ Countdown To Our Next 24th</h2>
+
+<div class="countdown">
+    <div class="time-box"><strong id="days">0</strong><span>Days</span></div>
+    <div class="time-box"><strong id="hours">0</strong><span>Hours</span></div>
+    <div class="time-box"><strong id="minutes">0</strong><span>Minutes</span></div>
+    <div class="time-box"><strong id="seconds">0</strong><span>Seconds</span></div>
+</div>
+</section>
+
+<!-- Birthday countdown -->
+<section class="card">
+<h2>🎂 Countdown To Saakshi's 17th Birthday</h2>
+
+<p>Our birthday surprise unlocks at midnight in India. 🎀</p>
+
+<div class="countdown">
+    <div class="time-box"><strong id="bDays">0</strong><span>Days</span></div>
+    <div class="time-box"><strong id="bHours">0</strong><span>Hours</span></div>
+    <div class="time-box"><strong id="bMinutes">0</strong><span>Minutes</span></div>
+    <div class="time-box"><strong id="bSeconds">0</strong><span>Seconds</span></div>
+</div>
+
+<p id="lockNote" style="margin-top:20px;">
+    🎁 Your birthday surprise is waiting...
+</p>
+</section>
+
+<!-- Birthday surprise -->
+<section class="card" id="birthdaySurprise">
+    <h2>🎉 HAPPY 17TH BIRTHDAY, CARTOON! 🎀</h2>
+
+    <p class="surprise-text">
+        Happy Birthday, my beautiful Saakshi! ❤️<br><br>
+
+        Today is all about your smile, your happiness,
+        your dreams, and all the beautiful things you deserve.<br><br>
+
+        I wish I could be there to see your smile when you read this.
+        Until then, imagine your shybaby giving you the biggest hug ever. 🫂❤️<br><br>
+
+        Keep smiling, keep being your adorable self,
+        and never forget how special you are to me.<br><br>
+
+        Happy 17th birthday, my Cartoon. 🎂🎀<br>
+        With all my love, your shybaby. ❤️
+    </p>
+
+    <button onclick="createConfetti()">🎉 Celebrate Your Birthday!</button>
+</section>
+
+<section class="card">
+<h2 class="memory-title">📸 Our Little Memories</h2>
+
+<p style="text-align:center;">A few little pieces of our story. ❤️</p>
+
+<div class="photo-grid">
+    <img class="photo" src="media/photo1.jpg" alt="Our memory 1" loading="lazy">
+    <img class="photo" src="media/photo2.jpg" alt="Our memory 2" loading="lazy">
+    <img class="photo" src="media/photo3.jpg" alt="Our memory 3" loading="lazy">
+    <img class="photo" src="media/photo4.jpg" alt="Our memory 4" loading="lazy">
+    <img class="photo" src="media/photo5.jpg" alt="Our memory 5" loading="lazy">
+    <img class="photo" src="media/photo6.jpg" alt="Our memory 6" loading="lazy">
+    <img class="photo" src="media/photo7.jpg" alt="Our memory 7" loading="lazy">
+</div>
+</section>
+
+<section class="card music">
+<h2>🎵 Our Song</h2>
+
+<p>A little song for my favorite person. 🎀❤️</p>
+
+<audio id="birthdaySong" controls autoplay preload="auto" playsinline>
+    <source src="media/our-song.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+</audio>
+
+<br><br>
+
+<button id="playSongBtn" type="button">🎵 Play Our Song ❤️</button>
+
+<p id="musicHint" style="margin-top:15px;">
+    🎧 A little melody for my Cartoon.
+</p>
+</section>
+
+<section class="card proposal">
+<h2>💗 One Last Question...</h2>
+
+<div class="question">
+    Will you be my favorite person for all the days ahead?<br>
+    🥺🎀
+</div>
+
+<div class="proposal-buttons">
+    <button id="yesBtn" onclick="sayYes()">YES ❤️</button>
+    <button id="noBtn" onclick="sayNo()">NO 😭</button>
+</div>
+
+<div class="love-meter">
+    <p>Love Meter: <strong id="lovePercent">10%</strong></p>
+    <div class="meter">
+        <div class="meter-fill" id="meterFill"></div>
+    </div>
+</div>
+
+<div id="yesMessage">
+    <h2>YOU SAID YES!!! 😭❤️</h2>
+    <p>
+        I knew you couldn't resist me. 😌🎀<br><br>
+        I love you so, so much, Cartoon.<br><br>
+        Now come here... 🫂❤️
+    </p>
+</div>
+</section>
+
+<section class="card wish">
+<h2>🌙 Make A Wish</h2>
+<p>Close your eyes...<br>Make your birthday wish.</p>
+<br>
+
+<button onclick="makeWish()">✨ Make My Wish ✨</button>
+
+<p id="wishMessage" style="margin-top:20px;"></p>
+</section>
+
+<footer>Made with way too much love by your shybaby ❤️🎀</footer>
+
+</div>
+
+<script>
+/* FLOATING HEARTS */
+const heartContainer = document.getElementById("hearts");
+const heartSymbols = ["❤️","💗","💕","💖","💘","🎀","✨","🥰"];
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = heartSymbols[
+        Math.floor(Math.random() * heartSymbols.length)
+    ];
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = 15 + Math.random() * 25 + "px";
+    heart.style.animationDuration = 6 + Math.random() * 8 + "s";
+
+    heartContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 15000);
+}
+
+setInterval(createHeart, 350);
+for (let i = 0; i < 20; i++) createHeart();
+
+/* COUNTDOWN TO NEXT 24TH */
+function getNext24th() {
+    const now = new Date();
+    let target = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        24, 0, 0, 0
+    );
+
+    if (target <= now) {
+        target = new Date(
+            now.getFullYear(),
+            now.getMonth() + 1,
+            24, 0, 0, 0
+        );
+    }
+
+    return target;
+}
+
+function updateCountdown() {
+    const difference = getNext24th().getTime() - Date.now();
+
+    const days = Math.floor(difference / 86400000);
+    const hours = Math.floor(difference / 3600000) % 24;
+    const minutes = Math.floor(difference / 60000) % 60;
+    const seconds = Math.floor(difference / 1000) % 60;
+
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+    document.getElementById("minutes").textContent = minutes;
+    document.getElementById("seconds").textContent = seconds;
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* BIRTHDAY COUNTDOWN: 10 OCTOBER 2026 AT MIDNIGHT IST */
+function updateBirthdayCountdown() {
+    const birthdayTime = new Date(
+        "2026-10-10T00:00:00+05:30"
+    ).getTime();
+
+    const difference = birthdayTime - Date.now();
+
+    if (difference <= 0) {
+        document.getElementById("bDays").textContent = "0";
+        document.getElementById("bHours").textContent = "0";
+        document.getElementById("bMinutes").textContent = "0";
+        document.getElementById("bSeconds").textContent = "0";
+
+        document.getElementById("birthdaySurprise").style.display = "block";
+        document.getElementById("lockNote").textContent =
+            "🎉 SURPRISE! Happy 17th Birthday, Saakshi! 🎀❤️";
+
+        return;
+    }
+
+    document.getElementById("bDays").textContent =
+        Math.floor(difference / 86400000);
+
+    document.getElementById("bHours").textContent =
+        Math.floor(difference / 3600000) % 24;
+
+    document.getElementById("bMinutes").textContent =
+        Math.floor(difference / 60000) % 60;
+
+    document.getElementById("bSeconds").textContent =
+        Math.floor(difference / 1000) % 60;
+}
+
+updateBirthdayCountdown();
+setInterval(updateBirthdayCountdown, 1000);
+
+/* SONG AUTOPLAY */
+const birthdaySong = document.getElementById("birthdaySong");
+const playSongBtn = document.getElementById("playSongBtn");
+const musicHint = document.getElementById("musicHint");
+
+async function playBirthdaySong() {
+    try {
+        await birthdaySong.play();
+        playSongBtn.textContent = "🎵 Our song is playing ❤️";
+        musicHint.textContent = "Playing a little song for my Cartoon! 🎀";
+    } catch (error) {
+        playSongBtn.textContent = "💗 Tap here to play our song";
+        musicHint.textContent =
+            "Your browser blocked autoplay. Tap the button once to start the song. ❤️";
+    }
+}
+
+window.addEventListener("load", playBirthdaySong);
+
+playSongBtn.addEventListener("click", playBirthdaySong);
+
+/* PROPOSAL */
+let love = 10;
+let noCount = 0;
+
+const noMessages = [
+    "NO 😭",
+    "Are you sure? 🥺",
+    "Think again 😭",
+    "Really?? 💔",
+    "Cartoon pls 😭",
+    "Don't do this to shybaby 🥺",
+    "I'll cry now 😭",
+    "Okay that's rude 😭",
+    "ONE MORE CHANCE? 🥹",
+    "You can't escape love ❤️"
+];
+
+function sayNo() {
+    noCount++;
+    love = Math.min(100, love + 10);
+
+    document.getElementById("lovePercent").textContent = love + "%";
+    document.getElementById("meterFill").style.width = love + "%";
+
+    const noBtn = document.getElementById("noBtn");
+    noBtn.textContent = noMessages[
+        Math.min(noCount, noMessages.length - 1)
+    ];
+
+    if (window.innerWidth > 650) {
+        const x = (Math.random() - .5) * 250;
+        const y = (Math.random() - .5) * 100;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+}
+
+function sayYes() {
+    document.getElementById("yesMessage").style.display = "block";
+    document.getElementById("noBtn").style.display = "none";
+
+    love = 100;
+    document.getElementById("lovePercent").textContent = "100% ❤️";
+    document.getElementById("meterFill").style.width = "100%";
+
+    createConfetti();
+}
+
+/* MAKE A WISH */
+function makeWish() {
+    document.getElementById("wishMessage").textContent =
+        "✨ Wish sent to the universe... and hopefully it involves us. ❤️🎀";
+
+    createConfetti();
+}
+
+/* CONFETTI */
+function createConfetti() {
+    const symbols = ["❤️","💗","🎀","✨","💕","🌸"];
+
+    for (let i = 0; i < 70; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti";
+        piece.textContent = symbols[
+            Math.floor(Math.random() * symbols.length)
+        ];
+
+        piece.style.left = Math.random() * 100 + "%";
+        piece.style.fontSize = 12 + Math.random() * 20 + "px";
+        piece.style.animationDuration = 2 + Math.random() * 3 + "s";
+
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+    }
+}
+</script>
+
+</body>
+</html>
